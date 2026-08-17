@@ -17,10 +17,17 @@ This assignment explores object-oriented programming (OOP) concepts in Python, i
 Complete all TODO sections in the source code:
 
 1. Create a parent class.
+    - Created a parent class named Animals set that up with 
+    a name of that specific animal and the age of it
 2. Create a child class using inheritance.
+    - Used dogs to become the child (thought about using race horses) 
+     added breed, species, and finally a method unique to them
 3. Demonstrate class and instance namespaces.
+    - Created unique dogs that also included an extra fact that is only on one animal
 4. Demonstrate shallow and deep copying.
+    - Changed data that affected a shallow copy but not a deep copy.
 5. Create and test objects in `main()`.
+    - Confirmed output matched unit requests
 6. Add a student-created extension.
 
 ## Discussion Board Reflection

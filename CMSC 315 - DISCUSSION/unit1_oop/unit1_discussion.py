@@ -33,8 +33,7 @@ class Animal:
         self.age = age
 
     def display_info(self):
-        print("Name: " + self.name + ", Age: " + self.age)
-    pass
+        print(f"Name: {self.name}, Age: {self.age}")
 
 
 # TODO 2:
@@ -61,11 +60,10 @@ class Dog(Animal):
         self.color = color
         # New method
     def bark(self):
-        print(self.name + "says: Bark!")
+        print(self.name + " says: Bark!")
     def display_info(self):
-        print("Name: " + self.name + ", Age: " + self.age +
-        ", Breed: " + self.breed + ", Color: " + self.color)
-    pass
+        print(f"Name: {self.name}, Age: {self.age}, "
+              f"Breed: {self.breed}, Color: {self.color}")
 
 
 # TODO 3:
@@ -93,15 +91,15 @@ def demonstrate_namespaces():
     dog1.favorite_toy = "Rope"
 
     # Display each object's namespace
-        print("\nDog 1 namespace:")
-        print(dog1.__dict__)
+    print("\nDog 1 namespace:")
+    print(dog1.__dict__)
 
-        print("\nDog 2 namespace:")
-        print(dog2.__dict__)
+    print("\nDog 2 namespace:")
+    print(dog2.__dict__)
 
-        # Display the class namespace
-        print("\nDog class namespace:")
-        print(Dog.__dict__)
+    # Display the class namespace
+    print("\nDog class namespace:")
+    print(Dog.__dict__)
 
 # TODO 4:
 # Create a function that demonstrates shallow copying and deep copying.
