@@ -81,8 +81,27 @@ class Dog(Animal):
 
 def demonstrate_namespaces():
     print("\n=== Namespace Demonstration ===")
-    print("TODO: Implement namespace demonstration")
 
+    dog1 = Dog("Disco", 3, "King corso", "Grey")
+    dog2 = Dog("Lena", 5, "Pitbull", "Black and white")
+
+    print("Class variable through class:", Dog.species)
+    # Access the same class variable through an object
+    print("Class variable through dog1:", dog1.species)
+    print("Class variable through dog2:", dog2.species)
+
+    dog1.favorite_toy = "Rope"
+
+    # Display each object's namespace
+        print("\nDog 1 namespace:")
+        print(dog1.__dict__)
+
+        print("\nDog 2 namespace:")
+        print(dog2.__dict__)
+
+        # Display the class namespace
+        print("\nDog class namespace:")
+        print(Dog.__dict__)
 
 # TODO 4:
 # Create a function that demonstrates shallow copying and deep copying.
@@ -97,7 +116,29 @@ def demonstrate_namespaces():
 
 def demonstrate_copying():
     print("\n=== Copy Demonstration ===")
-    print("TODO: Implement shallow copy and deep copy demonstration")
+
+    animal = Animal("Charlie", 4)
+
+    # Add nested mutable data
+    animal.favorite_foods = ["Chicken", "Beef", ["Carrots", "Rice"]]
+
+    # Create a shallow copy
+    shallow_animal = copy(animal)
+
+    # Create a deep copy
+    deep_animal = deepcopy(animal)
+
+    # Modify nested data in the original object
+    animal.favorite_foods[2].append("Watermelon")
+
+    print("Original object: ")
+    print(animal.__dict__)
+
+    print("\nShallow copy: ")
+    print(shallow_animal.__dict__)
+
+    print("\nDeep copy: ")
+    print(deep_animal.__dict__)
 
 
 # TODO 5:
@@ -113,9 +154,14 @@ def demonstrate_copying():
 def main():
     print("=== Unit 1 OOP Assignment ===")
 
-    print("\nTODO: Create and test your parent object")
+    print("\n=== Parent Class Test ===")
+    animal = Animal("Charlie", 4)
+    animal.display_info()
 
-    print("\nTODO: Create and test your child object")
+    print("\n=== Child Class Test ===")
+    dog = Dog("Buddy", 3, "Labrador", "Black")
+    dog.display_info()
+    dog.bark()
 
     demonstrate_namespaces()
     demonstrate_copying()
