@@ -24,8 +24,16 @@ from copy import copy, deepcopy
 #
 # Replace the pass statement with your implementation.
 
-class ParentClass:
+class Animal:
+    # Class variable
+    kingdom = "Animalia"
+    def __init__(self, name, age):
+        # Instance variables
+        self.name = name
+        self.age = age
 
+    def display_info(self):
+        print("Name: " + self.name + ", Age: " + self.age)
     pass
 
 
@@ -41,7 +49,22 @@ class ParentClass:
 #
 # Replace the pass statement with your implementation.
 
-class ChildClass(ParentClass):
+class Dog(Animal):
+    species = "Canine"
+
+    def __init__(self, name, age, breed, color):
+        # Pull variables from animal
+        super().__init__(name, age)
+
+        # New variables
+        self.breed = breed
+        self.color = color
+        # New method
+    def bark(self):
+        print(self.name + "says: Bark!")
+    def display_info(self):
+        print("Name: " + self.name + ", Age: " + self.age +
+        ", Breed: " + self.breed + ", Color: " + self.color)
     pass
 
 
