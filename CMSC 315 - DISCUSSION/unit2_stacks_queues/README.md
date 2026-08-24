@@ -19,11 +19,17 @@ This assignment explores two fundamental linear data structures:
 Complete all TODO sections:
 
 1. Implement stack operations.
+ - Used a standard Python list, utilizing append() and pop() methods to manage the internal data.
 2. Implement queue operations.
+- Utilized Python's collections.deque module for efficient management while using append() and popleft().
 3. Demonstrate LIFO behavior.
+- Used a while loop to pop items off the stack, successfully showing that the most recently added items were the first to be removed.
 4. Demonstrate FIFO behavior.
+- Used a while loop to dequeue items, successfully showing that the oldest items in the queue were the first to be accessed.
 5. Create and test edge cases.
+- Implemented conditional checks (is_empty()) to return friendly string error messages rather than throwing exceptions when attempting to remove or peek at items. Also verified that single-item structures properly reported as empty once the final item was removed.
 6. Create a real-world scenario.
+- Strategy games like Stellaris or Civilization use this time of queue when setting up a build queue where the first one ordered is the first completed. 
 
 ## Discussion Board Reflection
 
