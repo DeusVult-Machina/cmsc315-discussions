@@ -18,17 +18,25 @@ class Stack:
     def __init__(self):
         # TODO (Student): Create the internal data structure for the stack.
         # Hint: A Python list can be used to store stack values.
+        self.items = []
         pass
 
     def push(self, value):
         # TODO (Student): Add value to the stack.
         # Add a short comment explaining why this operation supports LIFO behavior.
+        # This supports LIFO behavior because the most recently appended
+        self.items.append(value)
         pass
 
     def pop(self):
         # TODO (Student): Remove and return the most recently added value.
         # Improve or explain empty-stack handling.
+        # Empty-stack handling: Returns a friendly error message instead of throwing an IndexError.
         # What should happen if the stack is empty?
+        # Removes and returns the most recently added value.
+        if self.is_empty():
+            return "Error: Cannot pop from an empty stack."
+        return self.items.pop()
         pass
 
     def peek(self):
