@@ -11,6 +11,7 @@ shift elements in memory and how different operations impact performance.
 
 
 def insert_at(lst, index, value):
+    lst.insert(index, value)
     """
     TODO (Student):
     Insert a value into the list at the specified index.
@@ -36,6 +37,8 @@ def delete_at(lst, index):
     - Return None if the index is invalid.
     - Add comments explaining why index validation and safe deletion are important.
     """
+    if index < 0 or index >= len(lst):
+        return None
     pass
 
 
@@ -49,6 +52,13 @@ def search_value(lst, value):
     - Return -1 if the value is not found.
     - Add comments explaining why this is a linear search and why it scans sequentially.
     """
+    for i in range(len(lst)):
+        if lst[i] == value:
+            # Return the index if the value is found.[cite: 1]
+            return i
+
+    # Return -1 if the value is not found.[cite: 1]
+    return -1
     pass
 
 
@@ -72,6 +82,18 @@ def main():
     print("\n=== INSERTION TESTS ===")
     print("TODO: Create a list and demonstrate insertions.")
 
+    my_list = [20, 30, 40]
+    print(f"Original list: {my_list}")
+
+    insert_at(my_list, 0, 10)
+    print(f"After inserting at the beginning: {my_list}"
+
+    insert_at(my_list, 2, 25)
+    print(f"After inserting in the middle: {my_list}")
+
+    insert_at(my_list, len(my_list), 50)
+    print(f"After inserting at the end: {my_list}")
+
     # ===============================
     # TODO (Student): DELETION TESTS
     # ===============================
@@ -88,6 +110,18 @@ def main():
     print("\n=== DELETION TESTS ===")
     print("TODO: Demonstrate deletions from multiple positions.")
 
+    removed_first = delete_at(my_list, 0)
+    print(f"Removed '{removed_first}' from the beginning. Updated list: {my_list}")
+
+    # 1. Delete an item from the middle (Index 2).[cite: 1]
+    removed_middle = delete_at(my_list, 2)
+    # 3. Display the updated list after each deletion.[cite: 1]
+    print(f"Removed '{removed_middle}' from the middle. Updated list: {my_list}")
+
+    # 1. Delete an item from the end (Last index).[cite: 1]
+    removed_last = delete_at(my_list, len(my_list) - 1)
+    print(f"Removed '{removed_last}' from the end. Updated list: {my_list}")
+
     # ===============================
     # TODO (Student): SEARCH TESTS
     # ===============================
@@ -100,6 +134,13 @@ def main():
 
     print("\n=== SEARCH TESTS ===")
     print("TODO: Demonstrate searching for values.")
+    # 25 is expected to be at 1 in the index.
+    found_idx = search_value(my_list, 25)
+    print(f"Searching for 25 (exists). Result index: {found_idx}")
+
+    # Search for a value that doesn't exist
+    missing_idx = search_value(my_list, 999)
+    print(f"Searching for 999 (does not exist). Result index: {missing_idx}")
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -117,7 +158,15 @@ def main():
     print("\n=== EDGE CASES ===")
     print("TODO: Demonstrate at least two edge cases.")
 
+    # Edge Case 1: Delete using an invalid index.
+    # Pass an index of 100 which exceeds the list bounds to test the validation.
+    invalid_delete = delete_at(my_list, 100)
+    print(f"Attempting to delete at invalid index 100. Returned: {invalid_delete}")
 
+    # We create an empty list and immediately attempt to delete index 0.
+    empty_list = []
+    empty_delete = delete_at(empty_list, 0)
+    print(f"Attempting to delete from an empty list. Returned: {empty_delete}")
 
 if __name__ == "__main__":
     main()
