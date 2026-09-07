@@ -124,7 +124,7 @@ class BST:
         """
         values = []
         self._inorder_recursive(self.root, values)
-            return values
+        return values
         pass
 
     def _inorder_recursive(self, node, values):
