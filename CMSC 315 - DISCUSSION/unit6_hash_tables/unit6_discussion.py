@@ -35,6 +35,22 @@ def main():
     print("\n=== INSERT OPERATIONS ===")
     print("TODO: Create a dictionary and add multiple key-value pairs.")
 
+    # 1. Creating an empty dictionary to act as our hash table
+    # Python dictionaries are implemented as hash tables under the hood.
+    # When we add a key, Python computes a hash value for that key to determine
+    # exactly where in memory the associated value should be stored.
+    server_registry = {}
+
+    # 2. Adding 5 key-value pairs (Simulating a network server registry)
+    server_registry["192.168.1.1"] = "Router"
+    server_registry["192.168.1.10"] = "Database_Primary"
+    server_registry["192.168.1.11"] = "Database_Replica"
+    server_registry["192.168.1.20"] = "Web_Server_01"
+    server_registry["192.168.1.50"] = "Mail_Server"
+
+    # 4. Displaying the contents
+    print("Current Server Registry:", server_registry)
+
     # ===============================
     # TODO (Student): LOOKUP OPERATIONS
     # ===============================
@@ -46,6 +62,17 @@ def main():
 
     print("\n=== LOOKUP OPERATIONS ===")
     print("TODO: Demonstrate successful key lookups.")
+
+    # 3. Explaining lookups: Because dictionaries use hashing, looking up a value
+    # by its key is generally an O(1) operation. Python hashes the key we provide,
+    # jumps directly to that memory address, and retrieves the value.
+
+    # 1 & 2. Retrieving two existing keys and displaying results
+    primary_db = server_registry["192.168.1.10"]
+    web_server = server_registry.get("192.168.1.20")
+
+    print(f"Lookup for '192.168.1.10': {primary_db}")
+    print(f"Lookup for '192.168.1.20': {web_server}")
 
     # ===============================
     # TODO (Student): UPDATE OPERATIONS
@@ -60,6 +87,18 @@ def main():
     print("\n=== UPDATE OPERATIONS ===")
     print("TODO: Demonstrate updating an existing key.")
 
+    print(f"Before update: {server_registry['192.168.1.20']}")
+
+    # 1. Updating an existing key
+    server_registry["192.168.1.20"] = "Web_Server_01_MAINTENANCE"
+
+    # 3. Explaining updates: When we assign a new value to an existing key,
+    # Python calculates the hash for the key, finds the existing entry in the
+    # hash table, and overwrites the old value with the new one.
+
+    # 2. Displaying after update
+    print(f"After update: {server_registry['192.168.1.20']}")
+
     # ===============================
     # TODO (Student): DELETE OPERATIONS
     # ===============================
@@ -71,6 +110,18 @@ def main():
 
     print("\n=== DELETE OPERATIONS ===")
     print("TODO: Demonstrate deleting a key-value pair.")
+
+    print("Registry before deletion:", list(server_registry.keys()))
+
+    # 1. Deleting a key-value pair
+    del server_registry["192.168.1.11"]
+
+    # 3. Explaining deletions: Using 'del' or '.pop()' hashes the key, locates
+    # the bucket in the hash table, and removes the reference to the key-value pair,
+    # freeing up that space (or marking it as deleted to preserve probing chains).
+
+    # 2. Displaying after deletion
+    print("Registry after deletion:", list(server_registry.keys()))
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -89,6 +140,17 @@ def main():
     print("\n=== EDGE CASES ===")
     print("TODO: Demonstrate and explain edge cases.")
 
+    # Edge Case 1: Safely looking up a missing key
+    # If we use bracket notation (server_registry["10.0.0.1"]), the program will crash
+    # with a KeyError. Using the .get() method returns None (or a specified default) safely.
+    missing_lookup = server_registry.get("10.0.0.1", "Not Found")
+    print(f"Edge Case 1 (Missing Key Lookup): Attempted to find '10.0.0.1', result was '{missing_lookup}'")
+
+    # Edge Case 2: Safely deleting a missing key
+    # Attempting to 'del' a non-existent key throws a KeyError. We can use .pop() with a
+    # default argument to safely attempt a deletion without crashing.
+    deleted_item = server_registry.pop("10.0.0.99", "Key did not exist")
+    print(f"Edge Case 2 (Missing Key Deletion): Attempted to delete '10.0.0.99', result was '{deleted_item}'")
 
 
 if __name__ == "__main__":
