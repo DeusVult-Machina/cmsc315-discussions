@@ -33,7 +33,45 @@ def bfs(graph, start):
     - How BFS differs from depth-first traversal.
     """
 
-    pass
+    # Handle the edge case where the start node doesn't exist in the graph
+    if start not in graph:
+        return []
+
+    # Track visited nodes using a Set for O(1) lookup time to prevent revisiting nodes
+    visited = set()
+
+    # Why a queue is used:
+    # A queue follows First-In-First-Out (FIFO) logic. This ensures that nodes discovered
+    # first are processed first, which naturally creates a level-by-level traversal.
+    queue = deque([start])
+
+    # Track the order of nodes we actually process to return at the end
+    traversal_order = []
+
+    # Mark the start node as visited immediately so it isn't added again
+    visited.add(start)
+
+    while queue:
+        # Pop the oldest node from the front of the queue
+        current_node = queue.popleft()
+        traversal_order.append(current_node)
+
+        # Why neighbors are added to the queue:
+        # We look at all direct connections (neighbors) of the current node. By adding
+        # unvisited neighbors to the back of the queue, we ensure they are processed
+        # only *after* all currently discovered nodes in the current level are finished.
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    # How BFS differs from depth-first traversal (DFS):
+    # BFS explores broadly, scanning all immediate neighbors (level 1) before moving
+    # deeper to the neighbors' neighbors (level 2). It uses a Queue.
+    # DFS explores deeply, following a single path down to its very end before
+    # backtracking to check other paths. It uses a Stack (or recursion).
+
+    return traversal_order
 
 
 def main():
@@ -53,6 +91,25 @@ def main():
     print("\n=== GRAPH STRUCTURE ===")
     print("TODO: Create and display a graph.")
 
+    # Real-world Example: A regional train network.
+    # Nodes represent Cities (train stations).
+    # Edges represent direct train routes connecting the cities.
+    train_network = {
+        'Seattle': ['Portland', 'Boise'],
+        'Portland': ['Seattle', 'Sacramento'],
+        'Boise': ['Seattle', 'Salt Lake City'],
+        'Sacramento': ['Portland', 'San Francisco', 'Salt Lake City'],
+        'San Francisco': ['Sacramento', 'Los Angeles'],
+        'Salt Lake City': ['Boise', 'Sacramento', 'Las Vegas'],
+        'Las Vegas': ['Salt Lake City', 'Los Angeles'],
+        'Los Angeles': ['San Francisco', 'Las Vegas']
+    }
+
+    print("Regional Train Network (Adjacency List):")
+    for city, connections in train_network.items():
+        print(f"  {city} connects to -> {connections}")
+
+
     # ===============================
     # TODO (Student): BFS TRAVERSAL
     # ===============================
@@ -67,6 +124,27 @@ def main():
 
     print("\n=== BFS TRAVERSAL ===")
     print("TODO: Perform and explain BFS traversal.")
+
+    start_city = 'Seattle'
+    print(f"Starting BFS Traversal from: {start_city}")
+
+    # Explaining the level-by-level traversal:
+    # Level 0: Seattle
+    # Level 1 (Neighbors of Seattle): Portland, Boise
+    # Level 2 (Neighbors of Level 1): Sacramento, Salt Lake City
+    # Level 3 (Neighbors of Level 2): San Francisco, Las Vegas
+    # Level 4 (Neighbors of Level 3): Los Angeles
+    traversal_result = bfs(train_network, start_city)
+    print(f"Traversal Order: {traversal_result}")
+
+    print("\nAdding a new city (Denver) and connecting it to Salt Lake City...")
+    # Adding a new node and edge
+    train_network['Denver'] = ['Salt Lake City']
+    train_network['Salt Lake City'].append('Denver')
+
+    updated_traversal = bfs(train_network, start_city)
+    print(f"Updated Traversal Order: {updated_traversal}")
+
 
     # ===============================
     # TODO (Student): EDGE CASES
@@ -86,6 +164,26 @@ def main():
     print("\n=== EDGE CASE TESTS ===")
     print("TODO: Demonstrate and explain edge cases.")
 
+    # Edge Case 1: Start node is not in the graph
+    print("\nEdge Case 1: Missing Start Node Safely")
+    print("Attempting to traverse starting from 'Miami' (not in network).")
+    missing_node_result = bfs(train_network, 'Miami')
+    print(f"Result: {missing_node_result}")
+    print("Explanation: The 'if start not in graph' check safely catches this, returning an empty list rather than throwing a KeyError.")
+
+    # Edge Case 2: Disconnected Graph
+    print("\nEdge Case 2: Disconnected Graph")
+    disconnected_graph = {
+        'A': ['B'],
+        'B': ['A'],
+        'C': ['D'], # C and D are isolated from A and B
+        'D': ['C']
+    }
+    print(f"Graph: {disconnected_graph}")
+    print("Starting traversal from 'A'...")
+    disconnected_result = bfs(disconnected_graph, 'A')
+    print(f"Result: {disconnected_result}")
+    print("Explanation: BFS only visits nodes reachable from the starting point. It visits 'A' and 'B', but the queue empties before it can reach 'C' or 'D', demonstrating that standard BFS doesn't automatically map disjointed sub-graphs.")
 
 
 if __name__ == "__main__":
